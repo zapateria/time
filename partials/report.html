@@ -1,0 +1,71 @@
+<style type="text/css" media="print">
+	tfoot.pagebreak { page-break-before: always; page-break-inside: avoid; }
+	}
+</style>
+<div class="hidden-print well form-inline">
+    <span class="fa fa-search"> Velg bruker og måned for rapportering
+		
+        <select class="form-control" ng-model="user" ng-options="user.email for user in vm.data"></select>
+        <select class="form-control" ng-model="vm.searchMonth" ng-options="month|date:'MMMM' for month in vm.months"></select>
+        <button class="btn btn-default form-control" ng-click="vm.printReport()">
+            <span class="fa fa-print"></span> Print
+        </button>
+    </div>
+    <div id="visible-print reportContents" class="table-responsive small" ng-show="user&&vm.searchMonth">
+        <table class="table table-bordered table-condensed table-striped">
+            <thead>
+                <tr class="h4 text-primary">
+                    <th colspan="7">Timeliste Smarthub AS</th>
+                </tr>
+                <tr class="h4">
+                    <th colspan="3">Navn: {{ user.fullName }}</th>
+                    <th colspan="4" class="text-right">{{vm.searchMonth|date:'MMMM/yyyy'}}</th>
+                </tr>
+                <tr class="alert alert-info">
+                    <th>Dato</th>
+                    <th>Prosjekt</th>
+                    <th>Beskrivelse</th>
+                    <th>Type</th>
+                    <th>Fra</th>
+                    <th>Til</th>
+                    <th>Timer</th>
+                </tr>
+                <tbody>
+                    <tr ng-repeat="activity in user.activities | filter:vm.filterByMonth | orderBy:'timeDate'">
+                        <td>{{activity.timeDate|date:'dd.MM.yyyy'}}</td>
+                        <td>{{activity.timeProject}}</td>
+                        <td>{{activity.timeDescription}}</td>
+                        <td>{{activity.timeCode}}</td>
+                        <td>{{activity.timeFrom|date:'HH:mm'}}</td>
+                        <td>{{activity.timeTo|date:'HH:mm'}}</td>
+                        <td>{{activity.timeHours|number}}</td>
+                    </tr>
+                </tbody>
+            </thead>
+            <tfoot class="pagebreak">
+                <tr class="active" ng-repeat="(timeCode,totalHours) in vm.getTotalHours(user.activities)">
+                    <td colspan=6>{{timeCode}}</td>
+                    <td>{{totalHours|number:2}}</td>
+                </tr>
+            </tr>
+            <tr>
+                <td colspan=6>Sum timer</td>
+                <td>{{vm.getSumHours(user.activities)|number:2}}</td>
+            </tr>
+            <tr class="text-primary">
+                <td colspan="3">
+                    <img src="assets/logo.png" width="64px" />
+                </td>
+                <td colspan="4">
+                    <u>
+                        <b>Attesteres:</b>
+                    </u>
+                    <br />
+                    <br />Dato: ________________________________________
+                    <br />
+                    <br />Navn: ________________________________________
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

@@ -1,0 +1,45 @@
+<div class="form-group">
+    <label for="userSelect">Registrer ny bruker, eller velg bruker for å redigere</label>
+    <select id="userSelect" class="form-control" ng-model="user" ng-options="user.email for user in vm.users">
+        <option value="">Ny bruker</option>
+    </select>
+</div>
+<div class="form-group panel panel-primary panel-md">
+    <div class="panel-heading">Brukerinformasjon</div>
+    <div class="panel-content panel-body">
+        <form name="userForm">
+            <dl class="dl-horizontal">
+                <dt>_id</dt>
+                <dd>
+                    <input ng-model="user._id" ng-disabled="true"></input>
+                </dd>
+                <dt>email</dt>
+                <dd>
+                    <input name="Email" ng-required="true" type="email" ng-model="user.email" type=text></input>
+                </dd>
+                <dt>password</dt>
+                <dd>
+                    <input ng-disabled="user._id" ng-required="true" type=text ng-model="user.password"></input>
+                </dd>
+                <dt>fullName</dt>
+                <dd>
+                    <input ng-required="true" type=text ng-model="user.fullName"></input>
+                </dd>
+                <dt>company</dt>
+                <dd>
+                    <input type=text ng-model="user.company" ng-init="user.company='Smarthub AS'"></input>
+                </dd>
+                <dt>employeeNumber</dt>
+                <dd>
+                    <input type=text ng-model="user.employeeNumber"></input>
+                </dd>
+            </dl>
+            <button ng-show="user._id" class="btn btn-primary" ng-click="userForm.$valid && vm.saveUser(user)">Lagre</button>
+            <button ng-show="user._id" class="btn btn-danger" ng-click="vm.deleteUser(user._id)">SLETT</button>
+            <button ng-hide="user._id" class="btn btn-info" ng-click="userForm.$valid && vm.newUser(user)">Lagre ny bruker</button>
+            <div ng-show="vm.message" class="alert alert-info">
+                <h3>{{vm.message}}</h3>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html
+    xmlns:ng="http://angularjs.org" ng-app="rny" lang="no">
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Timeregistrering for Smarthub AS" />
+        <meta name="author" content="Anders Nygård" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+        <title>SMARTHUB TIME</title>
+    </head>
+    <body ng-cloak ng-controller="MainController as main">
+        <header>
+            <nav class="navbar navbar-default navbar-collapse">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle"  ng-init="vm.navCollapsed = true" ng-click="vm.navCollapsed = !vm.navCollapsed" title="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#/">
+                            <img src="assets/logo.png" height="24px" /> SMARTHUB TIME
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar" ng-class="!vm.navCollapsed && 'in'">
+                        <ul class="nav navbar-nav">
+                            <li ng-show="main.user">
+                                <a href="#/add" ng-click="vm.navCollapsed = !vm.navCollapsed">
+                                    <span class="fa fa-plus"></span> Registrere
+                                </a>
+                            </li>
+                            <li ng-show="main.user">
+                                <a href="#/show" ng-click="vm.navCollapsed = !vm.navCollapsed">
+                                    <span class="fa fa-calendar"></span> Oversikt
+                                </a>
+                            </li>
+                            <li ng-show="main.user">
+                                <a href="#/report" ng-click="vm.navCollapsed = !vm.navCollapsed">
+                                    <span class="fa fa-list-alt"></span> Rapportering
+                                </a>
+                            </li>
+                            <li ng-show="main.user">
+                                <a href="#/admin" ng-click="vm.navCollapsed = !vm.navCollapsed">
+                                    <span class="fa fa-user-plus"></span> Administrasjon
+                                </a>
+                            </li>
+                            <li ng-show="main.user">
+                                <a href="#/me" ng-click="vm.navCollapsed = !vm.navCollapsed">
+                                    <span class="fa fa-user"></span> {{main.user.email}}
+                                </a>
+                            </li>
+                            <li ng-hide="main.user">
+                                <button class="btn btn-default navbar-btn" ng-click="main.login();vm.navCollapsed = !vm.navCollapsed">Logg inn</button>
+                            </li>
+                            <li ng-show="main.user">
+                                <button class="btn btn-default navbar-btn" ng-click="main.logout();vm.navCollapsed = !vm.navCollapsed">Logg ut</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container">
+            <div ng-view></div>
+        </div>
+    </body>
+    <script src="lib/moment-with-locales.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-route.js"></script>
+    <script src="assets/angular-locale_nb-no.js"></script>
+    <script src="assets/ui-bootstrap-tpls-0.13.3.js"></script>
+    <script src="https://cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js"></script>
+    <script src="https://cdn.rawgit.com/auth0/angular-jwt/master/dist/angular-jwt.js"></script>
+    <script src="main.js"></script>
+
+</html>

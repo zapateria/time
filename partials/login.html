@@ -1,0 +1,17 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <span class="fa fa-lock"></span> Innlogging kreves
+    </div>
+    <div class="modal-body form-group form-inline">
+        <form ng-submit="login.submit(_email, _password)">
+            <input id="email" class="form-control" type="email" ng-model="_email" placeholder="Epost"></input>
+            <input id="password" class="form-control" type="password" ng-model="_password" placeholder="Passord"></input>
+            <button type="submit" class="btn btn-primary form-control">Logg inn</button>
+            <button type="reset" class="btn btn-default" ng-click="login.cancel()">Avbryt</button>
+        </form
+    
+    </div>
+    <p>
+        <div id="error_message" ng-show="login.message" class="alert alert-danger">{{ login.message }}</div>
+    </p>
+</div>

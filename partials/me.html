@@ -1,0 +1,46 @@
+  
+<div class="panel panel-primary panel-md">
+    <div class="panel-heading">Min informasjon</div>
+    <div class="panel-content panel-body">
+        <dl class="dl-horizontal">
+            <dt>Epost</dt>
+            <dd>{{vm.user.email}}</dd>
+            <dt>Navn</dt>
+            <dd>{{vm.user.fullName}}</dd>
+            <dt>Firma</dt>
+            <dd>{{vm.user.company}}</dd>
+            <dt>Ansattnummer</dt>
+            <dd>{{vm.user.employeeNumber}}</dd>
+            <dt>Autentisert</dt>
+            <dd>{{vm.user.iat*1000|date}}</dd>
+            <dt>Autentisering utløper</dt>
+            <dd>{{vm.user.exp*1000|date}}</dd>
+        </dl>
+    </div>
+</div>
+<div class="panel panel-primary panel-md">
+
+    <div class="panel-heading">Timekonto (fra {{vm.firstDate|date}} til og med dagens dato)</div>
+    <div class="panel-content panel-body">
+        <dl class="dl-horizontal">
+            <dt>Totalt timer</dt>
+            <dd>{{vm.workHours}}</dd>
+
+            <dt>Registrerte timer</dt>
+            <dd>{{vm.myHours}}</dd>
+            <dt>Fleksitidskonto</dt>
+            <dd>{{ vm.myHours - vm.workHours }}</dd>
+            
+            <dt>Overtid (Utbet./avsp.)</dt>
+            <dd>{{ vm.overtime.worked }}</dd>
+            <dt>Overtid Avspasert</dt>
+            <dd>{{vm.overtime.used}}</dd>
+<!--
+            <dt>Overtidskonto</dt>
+            <dd>{{vm.overtime.sum}}</dd>
+-->
+        </dl>
+    </div>
+
+</div>
+

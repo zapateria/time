@@ -1,0 +1,86 @@
+<style>
+.full button span {
+    background-color: limegreen;
+    border-radius: 32px;
+    color: black;
+  }
+.partial button span {
+    background-color: yellow;
+    border-radius: 32px;
+    color: black;
+  }
+</style>
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr class="info">
+            <th>Dato</th>
+            <th>Prosjekt</th>
+            <th></th>
+            <th>Type</th>
+            <th>Fra</th>
+            <th>Til</th>
+            <th>Timer</th>
+            <th></th>
+        </thead>
+        <tr ng-repeat="activity in vm.user.activities | filter:vm.selectedMonthFilter">
+            <td>{{activity.timeDate|date:'dd.MM'}}</td>
+            <td>{{activity.timeProject}}</td>
+            <td>{{activity.timeDescription}}</td>
+            <td>{{activity.timeCode}}</td>
+            <td>{{activity.timeFrom|date:'HH:mm'}}</td>
+            <td>{{activity.timeTo|date:'HH:mm'}}</td>
+            <td>{{activity.timeHours}}</td>
+            <td>
+                <button class="btn btn-danger btn-xs" ng-click="vm.delActivity(vm.user._id,activity._id)">
+                    <span class="fa fa-remove"></span>
+                </button>
+            </td>
+        </tr>
+        <tr class="active" ng-repeat="(timeCode,totalHours) in vm.getTotalHours(vm.user.activities)">
+            <td colspan=6>{{timeCode}}</td>
+            <td>{{totalHours}}</td>
+            <td></td>
+        </tr>
+    </tr>
+</table>
+<form class="form" role="form" ng-submit="vm.newActivity(vm.act)">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-3">
+                <p>
+                    <label class="control-label">Prosjektnavn og arbeidstidskode</label>
+                    <br />
+                    <select class="form-control input-md" ng-model="vm.act.timeProject" ng-options="project for project in vm.timeProjects"></select>
+                    <select class="form-control input-md" ng-model="vm.act.timeCode" ng-options="code for code in vm.timeCodes"></select>
+                </p>
+                <p>
+                    <input type="text" class="form-control input-md" ng-model="vm.act.timeDescription" placeholder="Beskrivelse (valgfri)" tooltip="Før inn eksterne prosjektnummer ved viderefakturering"></input>
+                </p>
+            </div>
+            <div class="col-md-2">
+                <label class="control-label">Tid inn</label>
+                <timepicker ng-model="vm.act.timeFrom" show-meridian="false" minute-step=15></timepicker>
+            </div>
+            <div class="col-md-2">
+                <label class="control-label">Tid ut</label>
+                <timepicker ng-model="vm.act.timeTo" maxTime="now" show-meridian="false" minute-step=15></timepicker>
+            </div>
+            <div class="col-md-5">
+                <label class="control-label">Dato for registrering</label>
+                <datepicker ng-model="vm.act.timeDate" custom-class="vm.getDayClass(date,mode)" starting-day=1></datepicker>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-inline">
+                <div ng-show="vm.message" class="alert alert-info">{{ vm.message }}</div>
+                    <button class="form-control btn btn-success btn-md" type="submit">
+                        <span class="fa fa-save"></span> Lagre
+                    </button>
+                    <input type="hidden" ng-model="vm.act.email" ng-init="vm.act.email = vm.user.email"></input>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
