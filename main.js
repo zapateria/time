@@ -69,13 +69,14 @@ function RunAuthorize($rootScope, $window, $location, store, jwtHelper, auth) {
 	});
 }
 
+
 /**
  * Loads the jwt token from browser storage on every request
  * @function ConfigureInterceptorProvider
  * @requires angular-jwt
  * @requires angular-store
  */
-function ConfigInterceptorProvider($routeProvider, jwtInterceptorProvider, $httpProvider) {
+function ConfigInterceptorProvider($routeProvider, jwtInterceptorProvider, jwtOptionsProvider, $httpProvider) {
 	$routeProvider.otherwise({
 		redirectTo: '/'
 	});
@@ -83,6 +84,8 @@ function ConfigInterceptorProvider($routeProvider, jwtInterceptorProvider, $http
 	jwtInterceptorProvider.tokenGetter = function(store) {
 		return store.get('jwt');
 	};
+
+	jwtOptionsProvider.config({ whiteListedDomains: ['rny.no','smarthub.no'] });
 
 	$httpProvider.interceptors.push('jwtInterceptor');
 }
@@ -573,18 +576,18 @@ function ReportActivityController(api) {
 	var vm = this;
 
 	vm.months = [
-	new Date(2016, 1, 0),
-	new Date(2016, 2, 0),
-	new Date(2016, 3, 0),
-	new Date(2016, 4, 0),
-	new Date(2016, 5, 0),
-	new Date(2016, 6, 0),
-	new Date(2016, 7, 0),
-	new Date(2016, 8, 0),
-	new Date(2016, 9, 0),
-	new Date(2016, 10, 0),
-	new Date(2016, 11, 0),
-	new Date(2016, 12, 0)];
+	new Date(2017, 1, 0),
+	new Date(2017, 2, 0),
+	new Date(2017, 3, 0),
+	new Date(2017, 4, 0),
+	new Date(2017, 5, 0),
+	new Date(2017, 6, 0),
+	new Date(2017, 7, 0),
+	new Date(2017, 8, 0),
+	new Date(2017, 9, 0),
+	new Date(2017, 10, 0),
+	new Date(2017, 11, 0),
+	new Date(2017, 12, 0)];
 
     
 	vm.filterByMonth = function(item) {
